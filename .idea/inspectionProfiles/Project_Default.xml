@@ -1,0 +1,15 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="GradlePackageUpdate" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="excludeList">
+        <list>
+          <option value="androidx.core:core-ktx" />
+          <option value="androidx.lifecycle:lifecycle-livedata-ktx" />
+          <option value="androidx.lifecycle:lifecycle-viewmodel-ktx" />
+          <option value="junit:junit" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

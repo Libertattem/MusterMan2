@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_view_sample"
+            android:text="@string/route_text_view_sample"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_sample1"
+                android:layout_weight="1"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_sample2"
+                android:layout_weight="1"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_sample3"
+                android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_sample4" android:layout_weight="1"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_sample5" android:layout_weight="1"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_sample6" android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/text_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/route_text_viw_edit"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_input_layout_price"
+                android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/route_text_input_price"
+                    android:id="@+id/text_input_edit_price"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_input_layout_route"
+                android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/route_text_input_number"
+                    android:id="@+id/text_input_edit_route"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_input_layout_discount"
+                android:textColor="@color/black"
+                android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/route_text_input_discount"
+                    android:id="@+id/text_input_edit_discount"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_hot"
+            android:gravity="center">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/text_view_hot"
+                android:text="@string/route_text_input_hot"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/spinner_hot"
+                tools:ignore="MissingConstraints"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/text_view_unusable_hot"
+                android:text="@string/route_text_input_unusable"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/spinner_unusable_hot"
+                tools:ignore="MissingConstraints"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/text_view_cause_unusable_hot"
+                android:text="@string/route_cause_unusable"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/spinner_cause_unusable_hot"
+                tools:ignore="MissingConstraints"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_cold"
+            tools:ignore="MissingConstraints"
+            android:gravity="center">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/text_view_cold"
+                android:text="@string/route_text_input_cold"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/spinner_cold"
+                tools:ignore="MissingConstraints"/>
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/text_view_unusable_cold"
+                android:text="@string/route_text_input_unusable"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/spinner_unusable_cold"
+                tools:ignore="MissingConstraints"/>
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/text_view_cause_unusable_cold"
+                android:text="@string/route_cause_unusable"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/spinner_cause_unusable_cold"
+                tools:ignore="MissingConstraints"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_checks"
+            tools:ignore="MissingConstraints"
+            android:gravity="center">
+
+        <CheckBox
+                android:text="@string/route_check_box_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/check_box_discount"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAlignment="viewStart"/>
+
+        <CheckBox
+                android:text="@string/route_check_box_transfer"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/checkBox2"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textAlignment="viewStart"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_input_layout_transfer">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/route_text_input_transfer"
+                    android:id="@+id/text_input_edit_transfer"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_handle"/>
+
+</LinearLayout>

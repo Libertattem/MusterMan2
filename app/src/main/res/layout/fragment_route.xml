@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.route.RouteFragment"
+        android:orientation="vertical">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/route_text_viw_handle"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:text="@string/route_text_viw_handle"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/scroll"
+            android:layout_weight="1">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+            android:text="@string/route_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_route_add"
+            android:layout_gravity="center"/>
+
+</LinearLayout>
