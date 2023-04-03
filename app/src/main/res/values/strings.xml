@@ -4,18 +4,33 @@
     <string name="title_results">Итоги</string>
     <string name="title_statistics">Статистика</string>
 
-    <string name="route_text_input_unusable">Н/Г:</string>
     <string name="route_text_input_cold">Холодных:</string>
     <string name="route_text_input_number">Номер:</string>
     <string name="route_text_input_price">Цена:</string>
     <string name="route_text_input_hot">Горячих:</string>
-    <string name="route_check_box_transfer">Перевод: </string>
+    <string name="route_check_box_transfer">Перевод</string>
     <string name="route_check_box_discount">Скидка</string>
     <string name="route_text_viw_edit">Редактор</string>
-    <string name="route_text_viw_handle">Обработанные заказы</string>
+    <string name="route_text_viw_handle">Обработанных заказов: 1</string>
     <string name="route_text_view_sample">Шаблоны</string>
     <string name="route_text_input_discount">Скидка:</string>
-    <string name="route_text_input_transfer">Сумма</string>
+    <string name="route_text_input_transfer">Перевод:</string>
     <string name="route_add">Добавить маршрут</string>
-    <string name="route_cause_unusable">Причина</string>
+
+    <string-array name="causes_unusable">
+        <item>внешний осммотр</item>
+        <item>опробование</item>
+        <item>определение отн. погрешности</item>
+    </string-array>
+
+    <string-array name="meter_count">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
 </resources>

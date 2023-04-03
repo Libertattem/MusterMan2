@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/activity_main.xml" value="0.271286231884058" />
-        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/edit_menu.xml" value="0.271286231884058" />
-        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/fragment_route.xml" value="0.271286231884058" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/edit_menu.xml" value="0.33" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/fragment_route.xml" value="0.33" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/route_item.xml" value="0.32971014492753625" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/route_object_style.tld" value="0.32971014492753625" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/route_object_style.xml" value="0.32971014492753625" />
       </map>
     </option>
   </component>

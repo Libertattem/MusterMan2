@@ -24,19 +24,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/button_sample1"
-                android:layout_weight="1"/>
+                android:layout_weight="1" tools:ignore="SpeakableTextPresentCheck"/>
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/button_sample2"
-                android:layout_weight="1"/>
+                android:layout_weight="1" tools:ignore="SpeakableTextPresentCheck"/>
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/button_sample3"
-                android:layout_weight="1"/>
+                android:layout_weight="1" tools:ignore="SpeakableTextPresentCheck"/>
     </LinearLayout>
-
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,15 +44,15 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_sample4" android:layout_weight="1"/>
+                android:id="@+id/button_sample4" android:layout_weight="1" tools:ignore="SpeakableTextPresentCheck"/>
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_sample5" android:layout_weight="1"/>
+                android:id="@+id/button_sample5" android:layout_weight="1" tools:ignore="SpeakableTextPresentCheck"/>
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_sample6" android:layout_weight="1"/>
+                android:id="@+id/button_sample6" android:layout_weight="1" tools:ignore="SpeakableTextPresentCheck"/>
 
     </LinearLayout>
 
@@ -77,7 +76,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/text_input_layout_price"
                 android:layout_weight="1">
-
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -91,7 +89,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/text_input_layout_route"
                 android:layout_weight="1">
-
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -105,12 +102,23 @@
                 android:id="@+id/text_input_layout_discount"
                 android:textColor="@color/black"
                 android:layout_weight="1">
-
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/route_text_input_discount"
                     android:id="@+id/text_input_edit_discount"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/text_input_layout_transfer"
+                android:layout_weight="1">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/route_text_input_transfer"
+                    android:id="@+id/text_input_edit_transfer"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -124,51 +132,33 @@
             android:gravity="center">
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/text_view_hot"
                 android:text="@string/route_text_input_hot"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="16sp"/>
-        <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/spinner_hot"
-                tools:ignore="MissingConstraints"/>
+                android:textSize="16sp" android:layout_weight="1.05"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/text_view_unusable_hot"
-                android:text="@string/route_text_input_unusable"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:textSize="16sp"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/button_hot" tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                android:layout_weight="1.2"/>
 
-        <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/spinner_unusable_hot"
-                tools:ignore="MissingConstraints"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/button_unusable_hot" tools:ignore="SpeakableTextPresentCheck"
+                android:layout_weight="1"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/text_view_cause_unusable_hot"
-                android:text="@string/route_cause_unusable"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:textSize="16sp"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/button_cause_unusable_hot" tools:ignore="SmallSp,SpeakableTextPresentCheck"
+                android:textSize="10sp" android:layout_weight="0.8"/>
 
-        <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/spinner_cause_unusable_hot"
-                tools:ignore="MissingConstraints"/>
     </LinearLayout>
-
-
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -178,50 +168,31 @@
             android:gravity="center">
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/text_view_cold"
                 android:text="@string/route_text_input_cold"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="16sp"/>
-        <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/spinner_cold"
-                tools:ignore="MissingConstraints"/>
+                android:textSize="16sp" android:layout_weight="1.05"/>
 
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/button_cold" tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                android:layout_weight="1.2"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/text_view_unusable_cold"
-                android:text="@string/route_text_input_unusable"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:textSize="16sp"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/button_unusable_cold" tools:ignore="SpeakableTextPresentCheck"
+                android:layout_weight="1"/>
 
-        <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/spinner_unusable_cold"
-                tools:ignore="MissingConstraints"/>
-
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/text_view_cause_unusable_cold"
-                android:text="@string/route_cause_unusable"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:textSize="16sp"/>
-
-        <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:id="@+id/spinner_cause_unusable_cold"
-                tools:ignore="MissingConstraints"/>
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/button_cause_unusable_cold" tools:ignore="SpeakableTextPresentCheck"
+                android:textSize="10sp" android:layout_weight="0.8"/>
     </LinearLayout>
 
     <LinearLayout
@@ -245,22 +216,10 @@
                 android:text="@string/route_check_box_transfer"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:id="@+id/checkBox2"
+                android:id="@+id/check_box_transfer"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textAlignment="viewStart"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_input_layout_transfer">
-
-            <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/route_text_input_transfer"
-                    android:id="@+id/text_input_edit_transfer"/>
-        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -268,6 +227,6 @@
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button_handle"/>
+            android:id="@+id/button_handle" tools:ignore="SpeakableTextPresentCheck"/>
 
 </LinearLayout>
