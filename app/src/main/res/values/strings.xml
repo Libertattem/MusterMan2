@@ -16,6 +16,13 @@
     <string name="route_text_input_discount">Скидка:</string>
     <string name="route_text_input_transfer">Перевод:</string>
     <string name="route_add">Добавить маршрут</string>
+    <string name="route_consumption_add">Добавить расход</string>
+    <string name="consumption_check_box_profit">Доход</string>
+    <string name="consumption_check_box_loss">Расход</string>
+    <string name="consumption_text_view_cause">Причина:</string>
+    <string name="consumption_text_view_sum">Сумма:</string>
+    <string name="consumption_button_handle">ДОБАВИТЬ</string>
+    <string name="route_clear">Очистить маршрут</string>
 
     <string-array name="causes_unusable">
         <item>внешний осммотр</item>
@@ -31,6 +38,18 @@
         <item>4</item>
         <item>5</item>
         <item>6</item>
+    </string-array>
+
+    <string-array name="consumption_causes">
+        <item>Еда</item>
+        <item>Запарвка</item>
+        <item>Чаевые</item>
+        <item>Прочее</item>
+    </string-array>
+
+    <string-array name="route_edit_menu">
+        <item>Изменить</item>
+        <item>Удалить</item>
     </string-array>
 
 </resources>

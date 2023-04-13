@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 
 class RouteViewModel : ViewModel() {
 
-    private val buttonSample: Map<Int, List<Int>> = mapOf(
+    private val defaultButtonSample: Map<Int, List<Int>> = mapOf(
         //Arg1 - горячие, Arg2 - холодные, Arg3 - горячие н/г,Arg4 - холодные н/г
         0 to listOf(2, 0, 0, 0),
         1 to listOf(0, 2, 0, 0),
@@ -12,85 +12,117 @@ class RouteViewModel : ViewModel() {
         3 to listOf(0, 1, 1, 0),
         4 to listOf(1, 0, 0, 1),
         5 to listOf(2, 2, 0, 0))
+    private val defaultPrice: Int = 600
+    private val defaultDiscount: Int = 50
+    private val defaultRouteIndex: Int = 1
+    private val defaultTransferSum: Int = 0
+    private val defaultHot: Int = 0
+    private val defaultCold: Int = 0
+    private val defaultUnusableHot: Int = 0
+    private val defaultUnusableCold: Int = 0
+    private val defaultDiscountCheck: Boolean = false
+    private val defaultCauseUnusableHot: String = ""
+    private val defaultCauseUnusableCold: String = ""
 
-    private val price: Int = 600
-    private val discount: Int = 50
-    private val routeIndex: Int = 1
-    private val transferSum: Int = 0
-    private val hot: Int = 0
-    private val cold: Int = 0
-    private val unusableHot: Int = 0
-    private val unusableCold: Int = 0
+    private val defaultConsumptionSum: Int = 0
+    private val defaultConsumptionCause: String = "Еда"
+    private val defaultConsumptionIsProfitCheck: Boolean = false
+    private val defaultConsumptionIndex: Int = 1
 
-    private val discountCheck: Boolean = false
-
-    private val causeUnusableHot: String = ""
-    private val causeUnusableCold: String = ""
+    private val defaultBottomRouteOpened: Boolean = false
+    private val defaultBottomConsumptionOpened: Boolean = false
 
 
     private val _buttonSampleLive = MutableLiveData<Map<Int, List<Int>>>().apply {
-        value = buttonSample
+        value = defaultButtonSample
     }
     val buttonSampleLive: LiveData<Map<Int, List<Int>>> = _buttonSampleLive
 
     private val _priceLive = MutableLiveData<Int>().apply {
-        value = price
+        value = defaultPrice
     }
     val priceLive: LiveData<Int> = _priceLive
 
     private val _routeIndexLive = MutableLiveData<Int>().apply {
-        value = routeIndex
+        value = defaultRouteIndex
     }
     val routeIndexLive: LiveData<Int> = _routeIndexLive
 
+    private val _consumptionIndexLive = MutableLiveData<Int>().apply {
+        value = defaultConsumptionIndex
+    }
+    val consumptionIndexLive: LiveData<Int> = _consumptionIndexLive
+
     private val _transferSumLive = MutableLiveData<Int>().apply {
-        value = transferSum
+        value = defaultTransferSum
     }
     val transferSumLive: LiveData<Int> = _transferSumLive
 
     private val _hotLive = MutableLiveData<Int>().apply {
-        value = hot
+        value = defaultHot
     }
     val hotLive: LiveData<Int> = _hotLive
 
     private val _coldLive = MutableLiveData<Int>().apply {
-        value = cold
+        value = defaultCold
     }
     val coldLive: LiveData<Int> = _coldLive
 
     private val _unusableHotLive = MutableLiveData<Int>().apply {
-        value = unusableHot
+        value = defaultUnusableHot
     }
     val unusableHotLive: LiveData<Int> = _unusableHotLive
 
     private val _unusableColdLive = MutableLiveData<Int>().apply {
-        value = unusableCold
+        value = defaultUnusableCold
     }
     val unusableColdLive: LiveData<Int> = _unusableColdLive
 
     private val _discountLive = MutableLiveData<Int>().apply {
-        value = discount
+        value = defaultDiscount
     }
     val discountLive: LiveData<Int> = _discountLive
 
     private val _discountCheckLive = MutableLiveData<Boolean>().apply {
-        value = discountCheck
+        value = defaultDiscountCheck
     }
     val discountCheckLive: LiveData<Boolean> = _discountCheckLive
 
     private val _causeUnusableHotLive = MutableLiveData<String>().apply {
-        value = causeUnusableHot
+        value = defaultCauseUnusableHot
     }
     val causeUnusableHotLive: LiveData<String> = _causeUnusableHotLive
 
     private val _causeUnusableColdLive = MutableLiveData<String>().apply {
-        value = causeUnusableCold
+        value = defaultCauseUnusableCold
     }
     val causeUnusableColdLive: LiveData<String> = _causeUnusableColdLive
 
-    fun editHot(hot: Int){
-        _hotLive.value = hot
+
+    private val _consumptionSumLive = MutableLiveData<Int>().apply {
+        value = defaultConsumptionSum
     }
+    val consumptionSumLive: LiveData<Int> = _consumptionSumLive
+
+    private val _consumptionCauseLive = MutableLiveData<String>().apply {
+        value = defaultConsumptionCause
+    }
+    val consumptionCauseLive: LiveData<String> = _consumptionCauseLive
+
+    private val _consumptionIsProfitCheckLive = MutableLiveData<Boolean>().apply {
+        value = defaultConsumptionIsProfitCheck
+    }
+    val consumptionIsProfitCheckLive: LiveData<Boolean> = _consumptionIsProfitCheckLive
+
+    private val _bottomRouteOpenedLive = MutableLiveData<Boolean>().apply {
+        value = defaultBottomRouteOpened
+    }
+    val bottomRouteOpenedLive: LiveData<Boolean> = _bottomRouteOpenedLive
+
+    private val _bottomConsumptionOpenedLive = MutableLiveData<Boolean>().apply {
+        value = defaultBottomConsumptionOpened
+    }
+    val bottomConsumptionOpenedLive: LiveData<Boolean> = _bottomConsumptionOpenedLive
 
     fun setIntValue(key: String, value: Int?): Boolean {
         /** available keys:
@@ -102,6 +134,8 @@ class RouteViewModel : ViewModel() {
          * "cold"
          * "unusable_hot"
          * "unusable_cold"
+         * "consumption_sum"
+         * "consumption_index"
          */
         return if (value == null){ false } else {
             when (key) {
@@ -113,6 +147,8 @@ class RouteViewModel : ViewModel() {
                 "cold" -> _coldLive.value = value
                 "unusable_hot" -> _unusableHotLive.value = value
                 "unusable_cold" -> _unusableColdLive.value = value
+                "consumption_sum" -> _consumptionSumLive.value = value
+                "consumption_index" -> _consumptionIndexLive.value = value
             }
             true
         }
@@ -122,8 +158,14 @@ class RouteViewModel : ViewModel() {
             when (key) {
                 /** available keys:
                  * "discount_check"
+                 * "consumption_is_profit_check"
+                 * "bottom_route_opened"
+                 * "bottom_consumption_opened"
                  */
                 "discount_check" -> _discountCheckLive.value = value
+                "consumption_is_profit_check" -> _consumptionIsProfitCheckLive.value = value
+                "bottom_route_opened" -> _bottomRouteOpenedLive.value = value
+                "bottom_consumption_opened" -> _bottomConsumptionOpenedLive.value = value
             }
             true
         }
@@ -134,15 +176,29 @@ class RouteViewModel : ViewModel() {
                 /** available keys:
                  * "cause_unusable_hot"
                  * "cause_unusable_cold"
+                 * "consumption_cause"
                  */
                 "cause_unusable_hot" -> _causeUnusableHotLive.value = value
                 "cause_unusable_cold" -> _causeUnusableColdLive.value = value
+                "consumption_cause" -> _consumptionCauseLive.value = value
             }
             true
         }
     }
 
     fun getIntValue (key: String) : Int {
+        /** available keys:
+         * "price"
+         * "discount"
+         * "route_index"
+         * "transfer_sum"
+         * "hot"
+         * "cold"
+         * "unusable_hot"
+         * "unusable_cold"
+         * "consumption_sum"
+         * "consumption_index"
+         */
         val value: Int? = when (key) {
             "price" -> priceLive.value
             "discount" -> discountLive.value
@@ -153,6 +209,8 @@ class RouteViewModel : ViewModel() {
             "unusable_hot" -> unusableHotLive.value
             "unusable_cold" -> unusableColdLive.value
             "sum" -> sumLive.value
+            "consumption_sum" -> consumptionSumLive.value
+            "consumption_index" -> consumptionIndexLive.value
             else -> { 0 }
         }
         return value ?: 0
@@ -160,8 +218,15 @@ class RouteViewModel : ViewModel() {
     fun getBooleanValue (key: String) : Boolean {
         val value: Boolean? = when (key) {
             /** available keys:
-             * "discount_check"*/
+             * "discount_check"
+             * "consumption_is_profit_check"
+             * "bottom_route_opened"
+             * "bottom_consumption_opened"
+             * */
             "discount_check" -> discountCheckLive.value
+            "consumption_is_profit_check" -> consumptionIsProfitCheckLive.value
+            "bottom_route_opened" -> bottomRouteOpenedLive.value
+            "bottom_consumption_opened" -> bottomConsumptionOpenedLive.value
             else -> { false }
         }
         return value ?: false
@@ -171,23 +236,49 @@ class RouteViewModel : ViewModel() {
             /** available keys:
              * "cause_unusable_hot"
              * "cause_unusable_cold"
+             * "consumption_cause"
              */
-            "cause_unusable_hot" -> _causeUnusableHotLive.value
-            "cause_unusable_cold" -> _causeUnusableColdLive.value
+            "cause_unusable_hot" -> causeUnusableHotLive.value
+            "cause_unusable_cold" -> causeUnusableColdLive.value
+            "consumption_cause" -> consumptionCauseLive.value
             else -> { "" }
         }
         return value ?: ""
     }
 
+    fun setDefaultRoute(setDefaultIndex: Boolean = false){
+        if (setDefaultIndex){
+            setIntValue("route_index", defaultRouteIndex)
+        }
+        setIntValue("price", defaultPrice)
+        setIntValue("discount", defaultDiscount)
+        setIntValue("transfer_sum", defaultTransferSum)
+        setIntValue("hot", defaultHot)
+        setIntValue("cold", defaultCold)
+        setIntValue("unusable_hot", defaultUnusableHot)
+        setIntValue("unusable_cold", defaultUnusableCold)
+        setBooleanValue("discount_check", defaultDiscountCheck)
+        setStringValue("cause_unusable_hot", defaultCauseUnusableHot)
+        setStringValue("cause_unusable_cold", defaultCauseUnusableCold)
+    }
 
+    fun setDefaultConsumption(setDefaultIndex: Boolean = false){
+        if (setDefaultIndex){
+            setIntValue("consumption_index", defaultConsumptionIndex)
+        }
+        setIntValue("consumption_sum", defaultConsumptionSum)
+        setBooleanValue("consumption_is_profit_check", defaultConsumptionIsProfitCheck)
+        setStringValue("consumption_cause", defaultConsumptionCause)
+
+    }
 
     private val _sumLive = MediatorLiveData<Int>()
     init {
-        _sumLive.addSource(_discountLive, Observer {_sumLive.value = finalSum()})
-        _sumLive.addSource(_discountCheckLive, Observer {_sumLive.value = finalSum()})
-        _sumLive.addSource(_coldLive, Observer {_sumLive.value = finalSum()})
-        _sumLive.addSource(_hotLive, Observer {_sumLive.value = finalSum()})
-        _sumLive.addSource(_priceLive, Observer {_sumLive.value = finalSum()})
+        _sumLive.addSource(_discountLive) { _sumLive.value = finalSum() }
+        _sumLive.addSource(_discountCheckLive) { _sumLive.value = finalSum() }
+        _sumLive.addSource(_coldLive) { _sumLive.value = finalSum() }
+        _sumLive.addSource(_hotLive) { _sumLive.value = finalSum() }
+        _sumLive.addSource(_priceLive) { _sumLive.value = finalSum() }
     }
 
     private fun finalSum(): Int{

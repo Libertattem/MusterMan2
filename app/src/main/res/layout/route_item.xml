@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginStart="2dp"
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/route_object_style"
+        android:background="@drawable/route_item_style"
         android:orientation="horizontal">
 
     <LinearLayout
@@ -29,11 +30,13 @@
         </TextView>
 
         <TextView
-                android:text="20 мин."
+                android:text="20:10"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_marginStart="5dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_view_average_time"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:id="@+id/text_view_current_time"
                 android:textSize="12sp"/>
     </LinearLayout>
 
@@ -44,15 +47,39 @@
             android:background="#305295"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/linear_layout_1"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_elapsed_time"
             app:layout_constraintStart_toEndOf="@+id/linear_layout_1"/>
+
+    <TextView
+            android:text="20 \nмин."
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/text_view_elapsed_time"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="center"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/divider"
+            app:layout_constraintEnd_toStartOf="@+id/divider1" android:textColor="#000000"/>
+
+    <View
+            android:id="@+id/divider1"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:background="#305295"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/linear_layout2"
+            app:layout_constraintStart_toEndOf="@+id/text_view_elapsed_time"/>
 
     <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/linear_layout2"
-            app:layout_constraintStart_toEndOf="@+id/divider"
+            app:layout_constraintStart_toEndOf="@+id/divider1"
             app:layout_constraintEnd_toStartOf="@+id/divider2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_layout_consumption"
+        android:gravity="center"
+        android:background="@drawable/consumption_item_profit_style">
+
+    <TextView
+            android:text="11:40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:layout_marginEnd="5dp"
+            android:id="@+id/text_view_current_time"/>
+    <View
+            android:id="@+id/divider_consumption1"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#2BAA0D"
+    />
+    <TextView
+            android:text="Чаевые"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_marginStart="5dp"
+            android:id="@+id/text_view_cause"
+            android:layout_weight="1"/>
+    <View
+            android:id="@+id/divider_consumption2"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#2BAA0D"
+    />
+    <TextView
+            android:text="+50р."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/text_view_sum"/>
+</LinearLayout>

@@ -69,7 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -79,6 +81,7 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="number"
                     android:hint="@string/route_text_input_price"
                     android:id="@+id/text_input_edit_price"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -92,6 +95,7 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="number"
                     android:hint="@string/route_text_input_number"
                     android:id="@+id/text_input_edit_route"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -105,6 +109,7 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="number"
                     android:hint="@string/route_text_input_discount"
                     android:id="@+id/text_input_edit_discount"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -117,6 +122,7 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="number"
                     android:hint="@string/route_text_input_transfer"
                     android:id="@+id/text_input_edit_transfer"/>
         </com.google.android.material.textfield.TextInputLayout>

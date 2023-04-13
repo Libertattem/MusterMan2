@@ -5,15 +5,13 @@ import android.content.SharedPreferences
 import android.util.Log
 
 import androidx.lifecycle.LiveData
-import org.w3c.dom.Text
 import java.io.File
-import java.util.jar.Attributes.Name
 
 class MainSharedPreferences (private val context: Context) {
 
     private lateinit var prefs: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
-
+    private val defaultTypeSharedPreferences: String = "main"
     private val defaultRouteIndex: Int = 0
     private val defaultNumberRoute: Int = 0
     private val defaultCashFlowsIndex: Int = 0
@@ -30,7 +28,7 @@ class MainSharedPreferences (private val context: Context) {
     private val defaultSum: Int = 0 // общая сумма
     private val defaultTransferSum: Int = 0 //
 
-    private val mainSharedPreferencesName: String = "MainCharacteristics"
+    private val mainSharedPreferencesName: String = "main"
 
     fun isCreated (sharedPreferencesName: String): Boolean {
         //Log.d("My_test", "sharedPreferences count: " + File(context.filesDir?.parent + "/shared_prefs/").list()?.size.toString())
@@ -39,32 +37,28 @@ class MainSharedPreferences (private val context: Context) {
 
     }
 
-    fun findRouteSharedPrefs () : List<SharedPreferences>? {
+    fun findRouteSharedPrefs (typeOfSharedPreferences: String) : List<SharedPreferences> {
         val listOfSharedPreferences: MutableList<SharedPreferences> = mutableListOf()
         val sharedPreferencesAll: Array<out String> = File(context.filesDir?.parent + "/shared_prefs/").list()!!
 
-        Log.d("My_test", "sharedPreferencesAll count: $sharedPreferencesAll")
         Log.d("My_test", "sharedPreferencesAll count: ${sharedPreferencesAll.size}")
-        for (i in sharedPreferencesAll){
-            Log.d("My_test", "sharedPreferencesAll items count: ${i.toString()}")
-        }
-
-        val findText: String = "route_"
+        val findText = "${typeOfSharedPreferences}_"
         for (i in sharedPreferencesAll){
             if (i.contains(findText)) {
                 val sharedPreferences = context.getSharedPreferences(i.replace(".xml", ""), Context.MODE_PRIVATE)
                 listOfSharedPreferences.add(sharedPreferences)
             }
         }
-
-        Log.d("My_test", "listOfSharedPreferences count: $listOfSharedPreferences")
         Log.d("My_test", "listOfSharedPreferences count: ${listOfSharedPreferences.size}")
-        return if (listOfSharedPreferences.size > 0){listOfSharedPreferences} else { null }
+        return if (listOfSharedPreferences.size > 0){
+            listOfSharedPreferences.sortedBy { it.getInt("${findText}index", 0) }}
+        else { listOf() }
     }
 
     fun createDefaultMainPref () {
         val mainPrefs = context.getSharedPreferences(mainSharedPreferencesName, Context.MODE_PRIVATE)
         val mainPrefsEditor = mainPrefs.edit()
+        mainPrefsEditor.putString("type_shared_prefs", defaultTypeSharedPreferences)
         mainPrefsEditor.putInt("route_index", defaultRouteIndex)
         mainPrefsEditor.putInt("number_route", defaultNumberRoute)
         mainPrefsEditor.putInt("cash_flows_index", defaultCashFlowsIndex)
@@ -83,24 +77,51 @@ class MainSharedPreferences (private val context: Context) {
         mainPrefsEditor.commit()
     }
 
-    fun deleteSharedPreferences (sharedPreferencesName: String?) {
+    fun deleteSharedPreferences (sharedPrefsOfRouteObject: SharedPreferences? = null, deleteAllRoute: Boolean = false,
+                                 deleteAllConsumption:Boolean = false, clearAllSharedPreferences: Boolean = false) {
         val sharedPreferencesDir = File(context.filesDir?.parent + "/shared_prefs/")
 
-        if (sharedPreferencesName == null){
+        fun deleteSharedPrefs(sharedPrefs: SharedPreferences, nameOfSharedPrefs: String){
+            val fileSharedPrefs = File("$sharedPreferencesDir/$nameOfSharedPrefs.xml")
+            sharedPrefs.edit().clear().commit()
+            fileSharedPrefs.delete()
+        }
+
+        if (clearAllSharedPreferences){
             for (i in sharedPreferencesDir.list()!!){
                 val sharedPrefsName: String = i.replace(".xml", "")
-                context.getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE).edit().clear().commit()
-                val deletedFile = File("$sharedPreferencesDir/$i")
-                deletedFile.delete()
-                //Log.d("My_test", "delete shared count: ${File("$sharedPreferencesDir/$i").delete()}")
-                Log.d("My_test", "delete shared count: $sharedPreferencesDir/$i")
+                val deletedSharedPrefs = context.getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE)
+                deleteSharedPrefs(deletedSharedPrefs, sharedPrefsName)
             }
         }
-        else {
-            context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE).edit().clear().apply()
-            val sharedPrefsFile: File = File("$sharedPreferencesDir$sharedPreferencesName.xml")
-            sharedPrefsFile.delete()
 
+        if (deleteAllRoute) {
+            val typeSharedPrefs = "route"
+            val findSharedPrefs = findRouteSharedPrefs(typeSharedPrefs)
+            for (i in findSharedPrefs) {
+                val indexOfSharedPrefs = i.getInt("${typeSharedPrefs}_index", 0)
+                val sharedPrefsName = "${typeSharedPrefs}_$indexOfSharedPrefs"
+                deleteSharedPrefs(i, sharedPrefsName)
+            }
+        }
+
+        if(deleteAllConsumption){
+            val typeSharedPrefs = "consumption"
+            val findSharedPrefs = findRouteSharedPrefs(typeSharedPrefs)
+            for (i in findSharedPrefs) {
+                val indexOfSharedPrefs = i.getInt("${typeSharedPrefs}_index", 0)
+                val sharedPrefsName = "${typeSharedPrefs}_$indexOfSharedPrefs"
+                deleteSharedPrefs(i, sharedPrefsName)
+            }
+        }
+
+        if (sharedPrefsOfRouteObject != null){
+            val typeSharedPrefs = sharedPrefsOfRouteObject.getString("type_shared_prefs", "none")
+            if (typeSharedPrefs != "none"){
+                val indexOfSharedPrefs = sharedPrefsOfRouteObject.getInt("${typeSharedPrefs}_index", 0)
+                val sharedPrefsName = "${typeSharedPrefs}_$indexOfSharedPrefs"
+                deleteSharedPrefs(sharedPrefsOfRouteObject, sharedPrefsName)
+            }
         }
     }
 
@@ -120,15 +141,44 @@ class MainSharedPreferences (private val context: Context) {
         mainPrefsEditor.apply()
     }
 
-    fun routeSharedPrefEditor (map: Map<String, Int>){
-        val pref = context.getSharedPreferences("route_${map["route_index"]}", Context.MODE_PRIVATE)
+    fun routeSharedPrefEditor (map: Map<String, Any>): SharedPreferences {
+        val type = map["type_shared_prefs"] as String
+        val pref = context.getSharedPreferences(type + "_${map[type + "_index"]}", Context.MODE_PRIVATE)
+
         val prefEditor = pref.edit()
         for ((key, item) in map){
-            prefEditor.putInt(key, item)
+            when (item) {
+                is Int -> {
+                    prefEditor.putInt(key, item)
+                }
+                is String -> {
+                    prefEditor.putString(key, item)
+                }
+                is Boolean -> {
+                    prefEditor.putBoolean(key, item)
+                }
+            }
         }
-        prefEditor.apply()
+        //prefEditor.apply()
+        prefEditor.commit()
+        return pref
     }
 
+    fun getLastRouteIndex(): Int {
+        val routeSharedPreferences = findRouteSharedPrefs("route")
+        if (routeSharedPreferences.isNotEmpty()) {
+            return routeSharedPreferences.last().getInt("route_index", 0)
+        }
+        return 0
+    }
+
+    fun getLastConsumptionIndex(): Int {
+        val routeSharedPreferences = findRouteSharedPrefs("consumption")
+        if (routeSharedPreferences.isNotEmpty()) {
+            return routeSharedPreferences.last().getInt("consumption_index", 0)
+        }
+        return 0
+    }
 }
 
 
