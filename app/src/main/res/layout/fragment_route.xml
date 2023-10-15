@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -74,6 +75,62 @@
                     android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Сортировать по: "
+                android:layout_weight="1" android:textColor="#000000"/>
+
+        <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sort_by"
+                android:layout_weight="1"
+                android:entries="@array/routs_sort"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Скрыть: "
+                android:layout_weight="1"
+                android:background="@color/purple_200"
+                android:textColor="#000000"/>
+
+        <CheckBox
+                android:text="Адреса"
+                android:id="@+id/hide_route"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        <CheckBox
+                android:text="Движения"
+                android:id="@+id/hide_consumption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        <CheckBox
+                android:text="Выполн."
+                android:id="@+id/hide_completed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+    </LinearLayout>
+
+
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/linear_layout_scroll"
                 android:orientation="vertical">
+
 
         </LinearLayout>
     </ScrollView>

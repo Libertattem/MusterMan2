@@ -23,6 +23,28 @@
     <string name="consumption_text_view_sum">Сумма:</string>
     <string name="consumption_button_handle">ДОБАВИТЬ</string>
     <string name="route_clear">Очистить маршрут</string>
+    <string name="results_text_view">Итоги:</string>
+    <string name="results_processed_routs">Обработано мршрутов:</string>
+    <string name="results_meters">Поверенно счетчиков:</string>
+    <string name="results_unusable_meters">Негодных счетчиков:</string>
+    <string name="results_cause1">- Внешний осмотр:</string>
+    <string name="results_cause2">- Опробование:</string>
+    <string name="results_cause3">- Определение отн. погрешности:</string>
+    <string name="results_salary">Заработано:</string>
+    <string name="results_money">Общая сумма денег:</string>
+    <string name="results_total">Итог:</string>
+    <string name="results_cash_flows">Денежные движения:</string>
+    <string name="results_loss">- Расход:</string>
+    <string name="results_profit">- Доход:</string>
+    <string name="results_cash">Наличные (факт):</string>
+    <string name="results_non_cash">Безнал (факт)</string>
+    <string name="results_give_get">Забрать(+) / Доложить (-):</string>
+    <string name="results_close_the_shift">Закрыть смену!</string>
+    <string name="results_hot">- Горячих:</string>
+    <string name="results_cold">- Холодных:</string>
+    <string name="results_total_time">Общее время:</string>
+    <string name="results_average_time">Среднее время:</string>
+    <string name="results_petrol">Бензин:</string>
 
     <string-array name="causes_unusable">
         <item>внешний осммотр</item>
@@ -47,9 +69,170 @@
         <item>Прочее</item>
     </string-array>
 
+    <string-array name="routs_sort">
+        <item>по порядку</item>
+        <item>по времени</item>
+    </string-array>
+
+    <string-array name="locations_for_petrol">
+        <item>Екатеринбург</item>
+        <item>Реж</item>
+        <item>Реж-Березовский</item>
+        <item>Реж-Березовский-Екатеринбург</item>
+        <item>Березовский-Екатеринбург</item>
+        <item>Ревда</item>
+        <item>Ревда-Первоуральск-Екатеринбург</item>
+        <item>Ревда-Первоуральск-Северка</item>
+        <item>Ревда-Первоуральск-Северка-Екатеринбург</item>
+        <item>Полевской-Екатеринбург</item>
+        <item>Полевской-Шабровский-Екатеринбург</item>
+        <item>Пышма-Среднеуральск</item>
+        <item>Пышма-Среднеуральск-Исеть</item>
+        <item>Своя</item>
+    </string-array>
+
+    <integer-array name="petrol_bonus">
+        <item>0</item>
+        <item>550</item>
+        <item>650</item>
+        <item>650</item>
+        <item>0</item>
+        <item>250</item>
+        <item>350</item>
+        <item>350</item>
+        <item>450</item>
+        <item>350</item>
+        <item>400</item>
+        <item>350</item>
+        <item>400</item>
+    </integer-array>
+
+    <string-array name="locations_for_price">
+        <item>Екатеринбург</item>
+        <item>Асбест</item>
+        <item>Реж</item>
+        <item>Березовский</item>
+        <item>Верхняя Пышма</item>
+        <item>Среднеуральск</item>
+        <item>Исеть</item>
+        <item>Арамиль</item>
+        <item>Большой Исток</item>
+        <item>Исток</item>
+        <item>Горный Щит</item>
+        <item>Шабровский</item>
+        <item>Полевской</item>
+        <item>Сысерть</item>
+        <item>Мичуринский</item>
+        <item>Совхозный</item>
+        <item>Садовый</item>
+        <item>Балтым</item>
+        <item>Гагаринский</item>
+        <item>Верхнее Дуброво</item>
+        <item>Белоярский</item>
+        <item>Мезенское</item>
+        <item>Курманка</item>
+        <item>Заречный</item>
+        <item>Рефтинский</item>
+        <item>Малышева</item>
+        <item>Богданович</item>
+        <item>Филатовское</item>
+        <item>Новопышминское</item>
+        <item>Курьи</item>
+        <item>Знаменское</item>
+        <item>Сухой Лог</item>
+        <item>Белокаменный</item>
+        <item>Другое</item>
+    </string-array>
+
+    <integer-array name="locations_price">
+        <item>600</item>
+        <item>600</item>
+        <item>700</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>700</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>700</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>600</item>
+        <item>700</item>
+        <item>700</item>
+    </integer-array>
+
+    <integer-array name="locations_discount">
+        <item>50</item>
+        <item>50</item>
+        <item>50</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>50</item>
+        <item>0</item>
+        <item>50</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>50</item>
+        <item>50</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>50</item>
+        <item>50</item>
+    </integer-array>
+
     <string-array name="route_edit_menu">
         <item>Изменить</item>
         <item>Удалить</item>
     </string-array>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="title_activity_info">О программе</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Настройки профиля</string>
+    <string name="second_fragment_label">Настройки маршрута</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="route_settings">Настройки маршрута</string>
+    <string name="settings_settings_route">Нас-ки маршрута</string>
+    <string name="navigation_drawer_open">Открыть</string>
+    <string name="navigation_drawer_close">Закрыть</string>
 
 </resources>

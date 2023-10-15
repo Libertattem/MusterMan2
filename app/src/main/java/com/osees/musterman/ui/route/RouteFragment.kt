@@ -1,6 +1,6 @@
 package com.osees.musterman.ui.route
 
-import android.app.AlertDialog
+import android.content.Context
 import android.content.SharedPreferences
 import com.osees.musterman.R
 import android.graphics.Color
@@ -14,7 +14,10 @@ import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
@@ -22,11 +25,12 @@ import com.osees.musterman.MainSharedPreferences
 import com.osees.musterman.databinding.EditMenuBinding
 import com.osees.musterman.databinding.FragmentRouteBinding
 import com.osees.musterman.databinding.RouteConsumptionEditorBinding
+import com.osees.musterman.putMap
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.StringJoiner
+import java.util.ArrayList
 
 class RouteFragment : Fragment() {
 
@@ -71,14 +75,12 @@ class RouteFragment : Fragment() {
             routeViewModel.setBooleanValue("bottom_consumption_opened", true)
         }
 
-        dialog?.setOnDismissListener {
-            routeViewModel.setBooleanValue("bottom_route_opened", false)
-            routeViewModel.setBooleanValue("bottom_consumption_opened", false)
-        }
-
         val unusableCauses: Array<String>? = activity?.resources?.getStringArray(R.array.causes_unusable)
         val meterCount: Array<String>? = activity?.resources?.getStringArray(R.array.meter_count)
         val consumptionCauses: Array<String>? = activity?.resources?.getStringArray(R.array.consumption_causes)
+        val locations: Array<String>? = activity?.resources?.getStringArray(R.array.locations_for_price)
+        val locationPrice: IntArray? = activity?.resources?.getIntArray(R.array.locations_price)
+        val locationDiscount: IntArray? = activity?.resources?.getIntArray(R.array.locations_discount)
 
 
         fun spannableTextForButtonSample(list: List<Int>): CharSequence {
@@ -151,7 +153,12 @@ class RouteFragment : Fragment() {
         val buttonConsumptionCause: Button = bottomConsumption.consumptionButtonCause
         val checkBoxConsumptionProfit: CheckBox = bottomConsumption.consumptionCheckBoxProfit
         val checkBoxConsumptionLoss: CheckBox = bottomConsumption.consumptionCheckBoxLoss
+        val checkBoxHideRouts: CheckBox = binding.hideRoute
+        val checkBoxHideConsumption: CheckBox = binding.hideConsumption
+        val checkBoxHideCompleted: CheckBox = binding.hideCompleted
+        val spinnerSortBy: Spinner = binding.sortBy
         val buttonConsumptionHandle: Button = bottomConsumption.consumptionButtonHandle
+        val buttonLocation: Button = bottomRoute.buttonLocation
 
         fun setPopupMenuForButton (button: Button, keyInt: String?, keyString: String?, menuItems: Array<String>?){
             val menu = PopupMenu(activity, button)
@@ -184,6 +191,7 @@ class RouteFragment : Fragment() {
         setPopupMenuForButton(buttonCauseUnusableCold, null, "cause_unusable_cold", unusableCauses)
 
         setPopupMenuForButton(buttonConsumptionCause, null, "consumption_cause", consumptionCauses)
+        setPopupMenuForButton(buttonLocation,null, "location", locations)
 
         routeViewModel.buttonSampleLive.observe(viewLifecycleOwner) {
             for (i in buttonsSample) {
@@ -203,6 +211,9 @@ class RouteFragment : Fragment() {
         }
         routeViewModel.transferSumLive.observe(viewLifecycleOwner) {
             textInputEditTransferSum.setText(it.toString())
+            if(it != 0 ){
+                checkBoxTransfer.isChecked = true
+            }
         }
         routeViewModel.discountCheckLive.observe(viewLifecycleOwner) {
             checkBoxDiscount.isChecked = it
@@ -271,6 +282,13 @@ class RouteFragment : Fragment() {
                 dialog?.show()
             }
         }
+        routeViewModel.locationLive.observe(viewLifecycleOwner){
+            if (locations?.indexOf(it) != null && it != "Другое") {
+                routeViewModel.setIntValue("price", locationPrice?.get(locations.indexOf(it)))
+                routeViewModel.setIntValue("discount", locationDiscount?.get(locations.indexOf(it)))
+            }
+            buttonLocation.text = it
+        }
         /*routeViewModel.unusableCausesLive.observe(viewLifecycleOwner){
             val adapter = ArrayAdapter(activity!!, R.layout.simple_spinner_item, it)
             adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
@@ -297,6 +315,15 @@ class RouteFragment : Fragment() {
         checkBoxConsumptionLoss.setOnCheckedChangeListener { _, isChecked ->
             routeViewModel.setBooleanValue("consumption_is_profit_check", !isChecked)
         }
+        checkBoxTransfer.setOnCheckedChangeListener { _, isChecked ->
+            //Toast.makeText(activity, "checked", Toast.LENGTH_LONG).show()
+            if (isChecked && routeViewModel.getIntValue("transfer_sum") == 0) {
+                routeViewModel.setIntValue("transfer_sum", routeViewModel.getIntValue("sum"))
+            }
+            else if (!isChecked){
+                routeViewModel.setIntValue("transfer_sum", 0)
+            }
+        }
 
         fun isNumber (string: String): Boolean {
             return try {
@@ -319,36 +346,51 @@ class RouteFragment : Fragment() {
                 return false
             }
         })*/
+        fun saveRouteTextInput(){
+            val price = textInputEditPrice.text.toString()
+            val routeIndex = textInputEditRoute.text.toString()
+            val discount =  textInputEditDiscount.text.toString()
+            val transferSum = textInputEditTransferSum.text.toString()
+
+            if (isNumber(price)){routeViewModel.setIntValue("price", price.toInt())}
+            if (isNumber(routeIndex)){routeViewModel.setIntValue("route_index", routeIndex.toInt())}
+            if (isNumber(discount)){routeViewModel.setIntValue("discount", discount.toInt())}
+            if (isNumber(transferSum)){routeViewModel.setIntValue("transfer_sum", transferSum.toInt())}
+        }
+
+        fun saveConsumptionTextInput(){
+            val sum = textEditConsumptionSum.text.toString()
+            if(isNumber(sum)){routeViewModel.setIntValue("consumption_sum", sum.toInt())}
+        }
 
         activity?.let { activity ->
             KeyboardVisibilityEvent.setEventListener(activity, viewLifecycleOwner, KeyboardVisibilityEventListener{
-                if (!it) {
-                    val textInputFocus = dialog?.currentFocus as TextView
-                    /*val inputText = textInputFocus.text.toString()
+                val openedRoute: Boolean = routeViewModel.getBooleanValue("bottom_route_opened")
+                val openedConsumption: Boolean = routeViewModel.getBooleanValue("bottom_consumption_opened")
 
-                    if (isNumber(inputText)) {
-                        val inputInt: Int = inputText.toInt()
-                        when (textInputFocus.id) {
-                            textEditConsumptionSum.id -> routeViewModel.setIntValue("consumption_sum", inputInt)
-                            textInputEditPrice.id -> routeViewModel.setIntValue("price", inputInt)
-                            textInputEditDiscount.id -> routeViewModel.setIntValue("discount", inputInt)
-                            textInputEditRoute.id -> routeViewModel.setIntValue("route_index", inputInt)
-                            textInputEditTransferSum.id -> routeViewModel.setIntValue("transfer_sum", inputInt)
+                if(openedRoute || openedConsumption) {
+                    if (!it) {
+                        val textInputFocus = dialog?.currentFocus as TextView
+                        if (openedRoute) {
+                            saveRouteTextInput()
+                        } else if (openedConsumption) {
+                            saveConsumptionTextInput()
                         }
-                    }*/
-
-                    if (routeViewModel.getBooleanValue("bottom_route_opened")){
-                        routeViewModel.setIntValue("price", textInputEditPrice.text.toString().toInt())
-                        routeViewModel.setIntValue("route_index", textInputEditRoute.text.toString().toInt())
-                        routeViewModel.setIntValue("discount", textInputEditDiscount.text.toString().toInt())
-                        routeViewModel.setIntValue("transfer_sum", textInputEditTransferSum.text.toString().toInt())
+                        textInputFocus.clearFocus()
                     }
-                    else if (routeViewModel.getBooleanValue("bottom_consumption_opened")){
-                        routeViewModel.setIntValue("consumption_sum", textEditConsumptionSum.text.toString().toInt())
-                    }
-                    textInputFocus.clearFocus()
                 }
             })
+        }
+
+        dialog?.setOnDismissListener {
+            if (routeViewModel.getBooleanValue("bottom_route_opened")){
+                saveRouteTextInput()
+                routeViewModel.setBooleanValue("bottom_route_opened", false)
+            }
+            else if (routeViewModel.getBooleanValue("bottom_consumption_opened")){
+                saveConsumptionTextInput()
+                routeViewModel.setBooleanValue("bottom_consumption_opened", false)
+            }
         }
 
         /*textEditConsumptionSum.setOnEditorActionListener {
@@ -384,6 +426,26 @@ class RouteFragment : Fragment() {
         val routeCreatorObjects = activity?.let { RouteCreatorObjects(binding.linearLayoutScroll, it, routeViewModel) }
         //mainSharedPreferences?.deleteSharedPreferences(null)
 
+
+        if (routeCreatorObjects != null) {
+            if(routeViewModel.linearLayoutLive.value == null){
+                routeViewModel.addLinearLayoutForLiveData(routeCreatorObjects.createLinearLayoutForLiveData())
+            }
+        }
+
+        binding.linearLayoutScroll.addView(routeViewModel.linearLayoutLive.value)
+
+        /*routeViewModel.linearLayoutLive.observe(viewLifecycleOwner){
+            //binding.linearLayoutScroll.addChildrenForAccessibility(it.children.toList() as ArrayList<View>?)
+
+            Log.d("My_tag", "add view")
+            binding.linearLayoutScroll.removeAllViews()
+            binding.linearLayoutScroll.addView(it)
+        }*/
+
+
+
+
         fun setLastRouteIndex(){
             routeViewModel.setIntValue("route_index", mainSharedPreferences?.getLastRouteIndex()?.plus(1))
         }
@@ -393,8 +455,24 @@ class RouteFragment : Fragment() {
         }
 
         if (mainSharedPreferences != null) {
-            routeCreatorObjects?.redrawRouteObjects()
+            //routeCreatorObjects?.redrawRouteObjects()
             setLastRouteIndex()
+        }
+
+        fun createRouteCellInViewModel (sharedPreferences: SharedPreferences){
+            val map: Map<String, *> = sharedPreferences.all
+            val liveMap: MutableLiveData<Map<String, *>> = routeViewModel.createMapLiveOfRoute(map)
+            liveMap.observe(viewLifecycleOwner){
+                if (it != null){
+                    sharedPreferences.edit().putMap(sharedPreferences, it)
+                }
+                else
+                {
+                    mainSharedPreferences?.deleteSharedPreferences(sharedPreferences)
+                }
+            }
+            val routeObject: ConstraintLayout? = routeCreatorObjects?.createRouteObject1(liveMap, viewLifecycleOwner)
+            routeObject?.id?.let { routeViewModel.addRoutsObject(sharedPreferences, liveMap.value?.get("route_index") as Int, routeObject, liveMap) }
         }
 
 
@@ -417,7 +495,7 @@ class RouteFragment : Fragment() {
             val causeUnusableHot = routeViewModel.getStringValue("cause_unusable_hot")
             val causeUnusableCold = routeViewModel.getStringValue("cause_unusable_cold")
 
-            val map: Map <String, Any> = mapOf(
+            val mapForRoute: Map <String, Any> = mapOf(
                 "type_shared_prefs" to typeSharedPreferences,
                 "route_index"   to routeIndex,
                 "current_time"  to currentTime,
@@ -434,26 +512,104 @@ class RouteFragment : Fragment() {
                 "cause_unusable_hot"  to causeUnusableHot,
                 "cause_unusable_cold" to causeUnusableCold
             )
+
+            val (routeSharedPref: String, isEdit: Boolean) = mainSharedPreferences!!.routeSharedPrefEditor1(mapForRoute)
+            val mapForRouteLiveData = routeViewModel.createMapLiveOfRoute(mapForRoute)
+
+
+            if(isEdit){
+                Log.d("My_tag", "is edit: " + isEdit)
+
+            }
+            else{
+                Log.d("My_tag", "is edit: " + isEdit)
+                val routeObject = routeCreatorObjects?.createRouteObject1(mapForRouteLiveData, viewLifecycleOwner)
+                val id1 = routeObject?.id!!
+                //val id1 = 1
+                //routeViewModel.linearLayoutLive.value?.addView(routeObject)
+                routeViewModel.addRouteInLinearLayout(routeObject)
+                routeViewModel.addRoutsObject(routeSharedPref, id1, mapForRouteLiveData)
+            }
+
+            fun createMapForMainSharedPrefs(isEdit: Boolean = false, oldMap: Map <String, *>? = null): Map<String, Any> {
+                val oldHot: Int
+                val oldCold: Int
+                val oldUnusableHot: Int
+                val oldUnusableCold: Int
+                val oldSum: Int
+                val oldTransferSum: Int
+                val oldPrice: Int
+
+                if (oldMap != null){
+                    oldHot = oldMap["hot"] as Int
+                    oldCold = oldMap["cold"] as Int
+                    oldUnusableHot= oldMap["unusable_hot"] as Int
+                    oldUnusableCold = oldMap["unusable_cold"] as Int
+                    oldSum = oldMap["sum"] as Int
+                    oldTransferSum = oldMap["transfer_sum"] as Int
+                    oldPrice = oldMap["price"] as Int
+                }else {
+                    oldHot = 0
+                    oldCold = 0
+                    oldUnusableHot= 0
+                    oldUnusableCold = 0
+                    oldSum = 0
+                    oldTransferSum = 0
+                    oldPrice = 0
+
+                }
+
+                val newHot = if (isEdit){hot - oldHot} else { hot }
+                val newCold = if (isEdit){cold - oldCold} else { cold }
+                val newUnusableHot = if (isEdit){unusableHot - oldUnusableHot} else { unusableHot }
+                val newUnusableCold = if (isEdit){unusableCold - oldUnusableCold} else { unusableCold }
+                val newSum = if (isEdit){sum - oldSum} else { sum }
+                val newTransferSum = if (isEdit){transferSum - oldTransferSum} else { transferSum }
+                val newMetersForPrice = if (isEdit){(hot + cold) - (oldHot + oldCold)} else { hot + cold }
+
+                val map = mutableMapOf<String, Any>(
+                    "hot" to newHot,
+                    "cold"  to newCold,
+                    "price_$oldPrice" to newMetersForPrice,
+                    "sum"           to newSum,
+                    "transfer_sum"  to newTransferSum,
+                    "unusable_hot"  to newUnusableHot,
+                    "unusable_cold" to newUnusableCold)
+
+                if (!isEdit){
+                    map["total_time"] = currentTime
+                    map["processed_routes"] = 1
+                }
+                else {map["processed_routes"] = 0}
+                if (oldPrice != price){map["price_$price"] = hot + cold}
+
+                return map
+            }
+
             val lastRouteIndexSharedPreferences = mainSharedPreferences?.getLastRouteIndex()
-            val routeSharedPref = mainSharedPreferences?.routeSharedPrefEditor(map)
 
             if (lastRouteIndexSharedPreferences != 0){
 
                 if (lastRouteIndexSharedPreferences!! >= routeIndex){
                     Log.d("My_test", "is redraw")
-                    routeCreatorObjects?.redrawRouteObjects()
+                    val oldRouteSharedPrefs = context?.getSharedPreferences(
+                        "${typeSharedPreferences}_$routeIndex", Context.MODE_PRIVATE)?.all
+                    mainSharedPreferences.putInMainSharedPrefs(createMapForMainSharedPrefs(true, oldRouteSharedPrefs))
+
+                    mainSharedPreferences.routeSharedPrefEditor(mapForRoute)
+                    //routeCreatorObjects?.redrawRouteObjects()
                 }
                 else{
-                    if (routeSharedPref != null) {
-                        routeCreatorObjects?.createRouteObject(routeSharedPref)
-                    }
+                    val routeSharedPref = mainSharedPreferences.routeSharedPrefEditor(mapForRoute)
+                    //routeCreatorObjects?.createRouteObject(routeSharedPref)
+                    mainSharedPreferences.putInMainSharedPrefs(createMapForMainSharedPrefs())
                     Log.d("My_test", "is add new")
                 }
             }
             else{
-                if (routeSharedPref != null) {
-                    routeCreatorObjects?.createRouteObject(routeSharedPref)
-                }
+                val routeSharedPref = mainSharedPreferences.routeSharedPrefEditor(mapForRoute)
+                //routeCreatorObjects?.createRouteObject(routeSharedPref)
+                mainSharedPreferences.putInMainSharedPrefs(createMapForMainSharedPrefs())
                 Log.d("My_test", "is add new")
             }
             setLastRouteIndex()
@@ -480,25 +636,49 @@ class RouteFragment : Fragment() {
                 "consumption_is_profit_check" to isProfit
             )
 
+            fun createMapForMainSharedPrefs(isEdit: Boolean = false, oldMap: Map <String, *>? = null): Map<String, Any> {
+                val oldSum: Int
+                val oldProfitCheck: Boolean
+
+                if (oldMap != null){
+                    oldSum = oldMap["consumption_sum"] as Int
+                    oldProfitCheck = oldMap["consumption_is_profit_check"] as Boolean
+                }
+                else{
+                    oldSum = 0
+                    oldProfitCheck = isProfit
+                }
+
+
+                val newProfit: Int = if (oldProfitCheck){ if (isEdit){sum - oldSum } else { sum } } else{ 0 }
+                val newLoss: Int = if (!oldProfitCheck){ if (isEdit){sum - oldSum } else { sum } } else{ 0 }
+
+                return mapOf<String, Any>(
+                    "profit" to newProfit,
+                    "loss"  to newLoss)
+            }
+
             val lastConsumptionIndexSharedPrefs = mainSharedPreferences?.getLastConsumptionIndex()
-            val consumptionSharedPref = mainSharedPreferences?.routeSharedPrefEditor(map)
 
             if (lastConsumptionIndexSharedPrefs != 0){
                 if (lastConsumptionIndexSharedPrefs!! >= consumptionIndex){
                     Log.d("My_test", "is redraw")
+                    val oldConsumptionSharedPrefs = context?.getSharedPreferences(
+                        "${typeSharedPreferences}_$consumptionIndex", Context.MODE_PRIVATE)?.all
+                    mainSharedPreferences.putInMainSharedPrefs(createMapForMainSharedPrefs(true, oldConsumptionSharedPrefs))
                     routeCreatorObjects?.redrawRouteObjects()
                 }
                 else{
-                    if (consumptionSharedPref != null) {
-                        routeCreatorObjects?.createConsumptionObject(consumptionSharedPref)
-                        Log.d("My_test", "is add new")
-                    }
+                    val consumptionSharedPref = mainSharedPreferences.routeSharedPrefEditor(map)
+                    mainSharedPreferences.putInMainSharedPrefs(createMapForMainSharedPrefs())
+                    routeCreatorObjects?.createConsumptionObject(consumptionSharedPref)
+                    Log.d("My_test", "is add new")
                 }
             }
             else{
-                if (consumptionSharedPref != null) {
-                    routeCreatorObjects?.createConsumptionObject(consumptionSharedPref)
-                }
+                val consumptionSharedPref = mainSharedPreferences.routeSharedPrefEditor(map)
+                mainSharedPreferences.putInMainSharedPrefs(createMapForMainSharedPrefs())
+                routeCreatorObjects?.createConsumptionObject(consumptionSharedPref)
                 Log.d("My_test", "is add new")
             }
             setLastConsumptionIndex()
@@ -508,63 +688,13 @@ class RouteFragment : Fragment() {
 
         routeViewModel.sumLive.observe(viewLifecycleOwner) {
             bottomRoute.buttonHandle.text = "Обработать: " + it.toString() + "р"
-            checkBoxTransfer.setOnCheckedChangeListener { _, isChecked ->
-                //Toast.makeText(activity, "checked", Toast.LENGTH_LONG).show()
-                if (isChecked) {
-                    routeViewModel.setIntValue("transfer_sum", it)
-                }
-                else {
-                    routeViewModel.setIntValue("transfer_sum", 0)
-                }
-            }
         }
 
         return root
     }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-    }
-    @Deprecated("Deprecated in Java")
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.route_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        if (id == R.id.route_menu_clear){
-
-            val builder = AlertDialog.Builder(activity)
-            builder.setTitle("Очистить маршрут")
-            builder.setMessage("Вы уверены?")
-
-            builder.setPositiveButton("Да"){dialogInterface, which ->
-                val mainSharedPreferences = activity?.let { MainSharedPreferences(it) }
-                mainSharedPreferences?.deleteSharedPreferences(deleteAllConsumption = true, deleteAllRoute = true)
-                val root = binding.linearLayoutScroll
-                activity?.let { RouteCreatorObjects(root, it, routeViewModel).redrawRouteObjects() }
-                routeViewModel.setDefaultRoute(true)
-                routeViewModel.setDefaultConsumption(true)
-                Toast.makeText(activity, "Сделано!", Toast.LENGTH_SHORT).show()
-            }
-
-            builder.setNeutralButton("Отмена"){dialogInterface , which ->
-            }
-            //builder.setNegativeButton("No"){dialogInterface, which ->
-            //    Toast.makeText(activity,"clicked No",Toast.LENGTH_LONG).show()
-            //}
-
-            val alertDialog: AlertDialog = builder.create()
-            alertDialog.setCancelable(false)
-            alertDialog.show()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onDestroyView() {
+        binding.linearLayoutScroll.removeAllViews()
         super.onDestroyView()
         _binding = null
     }

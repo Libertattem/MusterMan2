@@ -3,20 +3,20 @@ package com.osees.musterman.ui.route
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.LinearLayout
 import android.widget.PopupMenu
-import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import com.osees.musterman.MainSharedPreferences
 import com.osees.musterman.R
 import com.osees.musterman.databinding.ConsumptionItemBinding
 import com.osees.musterman.databinding.RouteItemBinding
-import java.time.format.DateTimeFormatter
-import java.util.StringJoiner
 
 class RouteCreatorObjects (private val root: ViewGroup, private val context: Context, private val routeViewModel: RouteViewModel) {
 
@@ -127,6 +127,126 @@ class RouteCreatorObjects (private val root: ViewGroup, private val context: Con
         }
 
         root.addView(routeObject.root)
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun createRouteObject1(mutableMapLiveData: MutableLiveData<Map<String, *>>, viewLifecycleOwner: LifecycleOwner): ConstraintLayout {
+        /**EXAMPLE MAP<String, Int> for route object:
+         *    mapOf(
+         *       "route_index"   to 1,
+         *       "current_time"  to 22:10
+         *       "elapsed_time"  to 1200,
+         *       "price"         to 600,
+         *       "sum"           to 1200,
+         *       "transfer_sum"  to 600,
+         *      "discount_check" to false,
+         *       "discount"      to 0,
+         *       "hot"           to 2,
+         *       "cold"          to 0,
+         *       "unusable_hot"  to 1,
+         *       "unusable_cold" to 0
+         *       "cause_unusable_hot"  to "определение отн. погрешности",
+         *       "cause_unusable_cold" to ""
+         *    )
+         */
+
+
+        val inflater = LayoutInflater.from(context)
+        val routeObject = RouteItemBinding.inflate(inflater)
+        val id = View.generateViewId()
+        routeObject.root.id = id
+
+        mutableMapLiveData.observe(viewLifecycleOwner){
+            val map = it
+            val routeIndex: Int = map["route_index"] as Int
+            val price: Int = map["price"] as Int
+            val hot: Int = map["hot"] as Int
+            val cold: Int= map["cold"] as Int
+            val discount: Int = map["discount"]  as Int
+            val discountCheck: Boolean = map["discount_check"] as Boolean
+            val unusableHot: Int = map["unusable_hot"] as Int
+            val unusableCold: Int= map["unusable_cold"] as Int
+            val sum: Int = map["sum"] as Int
+            val transferSum: Int = map["transfer_sum"] as Int
+
+            val currentTime: String = map["current_time"] as String
+            val elapsedTime: Int = map["elapsed_time"] as Int
+            val causeUnusableHot = map["cause_unusable_hot"] as String
+            val causeUnusableCold = map["cause_unusable_cold"] as String
+
+            routeObject.textViewRouteIndex.text = "№ $routeIndex"
+
+            routeObject.textViewSum.text = "${sum}р."
+            routeObject.textViewTransferSum.text = "${transferSum}р."
+
+            routeObject.textViewHot.text = "${hot}г"
+            routeObject.textViewCold.text = "${cold}х"
+            routeObject.textViewUnusable.text = "${unusableCold + unusableHot}н/г"
+
+            routeObject.textViewElapsedTime.text = "+${elapsedTime/60}\nмин."
+            routeObject.textViewCurrentTime.text = currentTime
+
+            if (discountCheck){
+                routeObject.textViewDiscount.text = "п/у"
+            }
+            else{
+                routeObject.textViewDiscount.text = "-"
+            }
+        }
+
+        val params = ViewGroup.MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        params.setMargins(2, 5, 2, 5)
+        routeObject.root.layoutParams = params
+        //routeObject.root.id = View.generateViewId()
+
+        val menu = PopupMenu(context, routeObject.root)
+        val routeEditMenu: Array<String>? = context.resources?.getStringArray(R.array.route_edit_menu)
+
+        if (routeEditMenu != null) {
+            for (item in routeEditMenu){
+                menu.menu.add(item)
+            }
+        }
+
+        menu.setOnMenuItemClickListener { item ->
+            //val newToast = Toast.makeText(context, item.toString(), Toast.LENGTH_SHORT)
+            when (item){
+                menu.menu.getItem(0) -> {
+                    routeViewModel.setIntValue("route_index", mutableMapLiveData.value?.get("route_index") as Int?)
+                    routeViewModel.setIntValue("discount", mutableMapLiveData.value?.get("discount") as Int?)
+                    routeViewModel.setBooleanValue("discount_check", mutableMapLiveData.value?.get("discount_check") as Boolean?)
+                    routeViewModel.setIntValue("hot", mutableMapLiveData.value?.get("hot") as Int?)
+                    routeViewModel.setIntValue("cold", mutableMapLiveData.value?.get("cold") as Int?)
+                    routeViewModel.setIntValue("unusable_hot", mutableMapLiveData.value?.get("unusable_hot") as Int?)
+                    routeViewModel.setIntValue("unusable_cold", mutableMapLiveData.value?.get("unusable_cold") as Int?)
+                    routeViewModel.setStringValue("cause_unusable_hot", mutableMapLiveData.value?.get("cause_unusable_hot") as String?)
+                    routeViewModel.setStringValue("cause_unusable_cold", mutableMapLiveData.value?.get("cause_unusable_cold") as String?)
+                    routeViewModel.setBooleanValue("bottom_route_opened", true)
+                }
+                menu.menu.getItem(1)-> {
+                    routeViewModel.deleteRouteInLinearLayout(routeObject.root)
+                    //routeViewModel.routeObjects
+
+                    routeViewModel.setIntValue("route_index", mainSharedPrefs.getLastRouteIndex() + 1)
+                }
+            }
+            true
+        }
+
+        routeObject.root.setOnLongClickListener {
+            menu.show()
+            true
+        }
+
+        return routeObject.root
+    }
+
+    fun createLinearLayoutForLiveData(): LinearLayout {
+        val linearLayout = LinearLayout(context)
+        val linearLayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+        linearLayout.layoutParams = linearLayoutParams
+        linearLayout.orientation = LinearLayout.VERTICAL
+        return linearLayout
     }
 
     fun createConsumptionObject(consumptionSharedPreferences: SharedPreferences){

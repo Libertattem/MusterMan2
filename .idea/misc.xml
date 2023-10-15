@@ -7,23 +7,63 @@
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/drawable/consumption_item_profit_style.xml" value="0.3807291666666667" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/drawable/consumption_item_style.xml" value="0.3796875" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/drawable/route_item_style.xml" value="0.3807291666666667" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/drawable/side_nav_bar.xml" value="0.3807291666666667" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/activity_main.xml" value="0.271286231884058" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/activity_settings.xml" value="0.32971014492753625" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/consumption_item.xml" value="0.32971014492753625" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/content_settings.xml" value="0.32971014492753625" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/edit_menu.xml" value="0.33" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/fragment_first.xml" value="0.32971014492753625" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/fragment_results.xml" value="0.32971014492753625" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/fragment_route.xml" value="0.33" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/fragment_second.xml" value="0.32971014492753625" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/nav_header_main.xml" value="0.32971014492753625" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/route_consumption_editor.xml" value="1.0" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/route_item.xml" value="0.5" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/route_menu.xml" value="0.1859375" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/route_object_style.tld" value="0.32971014492753625" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/layout/route_object_style.xml" value="0.32971014492753625" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/menu/activity_main_drawer.xml" value="0.37916666666666665" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3645833333333333" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/menu/bottom_nav_settings_menu.xml" value="0.378125" />
+        <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/menu/results_menu.xml" value="0.378125" />
         <entry key="..\:/Users/Max/IdeaProjects/MusterMan/app/src/main/res/menu/route_menu.xml" value="0.23177083333333334" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.353125" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/drawable/ic_free_icon_achievement_2887330.xml" value="0.353125" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/drawable/ic_menu_camera.xml" value="0.353125" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.353125" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/drawable/ic_profile.xml" value="0.353125" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/drawable/ic_profile_background.xml" value="0.353125" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/achievements_fragment.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/activity_info.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/activity_main.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/activity_profile.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/activity_settings.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/fragment_first.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/fragment_profile.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/fragment_profile_settings.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/fragment_program_settings.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/fragment_results.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/fragment_route.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/fragment_route_settings.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/fragment_second.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/nav_header_main.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/profile_fragment.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/layout/route_item.xml" value="0.31068840579710144" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/menu/bottom_nav_menu.xml" value="0.178125" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/menu/bottom_nav_profile_menu.xml" value="0.35052083333333334" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/menu/bottom_nav_settings_menu.xml" value="0.25" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/menu/route_menu.xml" value="0.3515625" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.353125" />
+        <entry key="..\:/Users/Max/IntelliJIDEAProjects/MusterMan/app/src/main/res/mipmap-anydpi-v26/ic_profile.xml" value="0.353125" />
       </map>
     </option>
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android API 32 Platform" project-jdk-type="Android SDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="jbr-11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

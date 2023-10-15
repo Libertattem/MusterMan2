@@ -1,23 +1,531 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".ui.results.ResultsFragment">
 
     <TextView
-            android:id="@+id/text_dashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:text="@string/results_text_view"
+            android:textColor="@color/black"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:textSize="20sp"/>
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:text="@string/results_processed_routs"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_processed_routs"
+                        android:text="2 шт."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:text="@string/results_total_time"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_total_time"
+                        android:text="2 ч. 20 м. 40 с."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:text="@string/results_average_time"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_average_time"
+                        android:text="15 м. 30 с."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_meters"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_meters"
+                        android:text="5 шт."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_hot"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_hot"
+                        android:textSize="16sp"
+                        android:text="3 шт."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="40dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_cold"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="16sp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_cold"
+                        android:text="2 шт."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_unusable_meters"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_unusable_meters"
+                        android:textSize="16sp"
+                        android:text="2 шт."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginStart="40dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_hot"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_unusable_hot"
+                        android:textSize="16sp"
+                        android:text="1 шт."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginStart="40dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_cold"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_unusable_cold"
+                        android:textSize="16sp"
+                        android:text="1 шт."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_salary"
+                        android:textSize="16sp"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_salary"
+                        android:text="480 р."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_petrol"
+                        android:textSize="16sp"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_petrol"
+                        android:text="480 р."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_cash_flows"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_cash_flows"
+                        android:textSize="16sp"
+                        android:text="- 450 р."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textSize="16sp"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_loss"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="16sp"
+                        android:id="@+id/results_loss"
+                        android:text="- 500 р."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_profit"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="16sp"
+                        android:id="@+id/results_profit"
+                        android:text="+ 50 р."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:text="@string/results_cash"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:text="2000 р."
+                        android:id="@+id/results_cash"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:text="@string/results_non_cash"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/results_non_cash"
+                        android:text="200 р."
+                        android:textSize="16sp"
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+
+                    android:background="@drawable/route_item_style"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textSize="18sp"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_money"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="18sp"
+                        android:id="@+id/results_money"
+                        android:text="2200 р."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:text="@string/results_give_get"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="16sp"
+                        android:id="@+id/results_give_get"
+                        android:text="+300 р."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/route_item_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:text="@string/results_total"
+                        android:layout_weight="1"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="18sp"
+                        android:id="@+id/results_total"
+                        android:layout_marginEnd="8dp"
+                        android:text="1660 р."
+                        android:textColor="@color/black"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+    <Button
+            android:text="@string/results_close_the_shift"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/button"/>
+
+
+</LinearLayout>

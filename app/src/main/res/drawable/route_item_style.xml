@@ -8,11 +8,9 @@
             android:bottom="0dp"
     />
     <size
-            android:width="270dp"
-            android:height="60dp"
     />
     <stroke
             android:width="2dp"
-            android:color="#1B3698"
+            android:color="#4156A5"
     />
 </shape>

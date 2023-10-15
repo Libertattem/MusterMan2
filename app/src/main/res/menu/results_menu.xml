@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/results_menu">
+
+    <item
+            android:id="@+id/route_menu_clear"
+            android:title="@string/route_clear"/>
+
+    <item
+            android:id="@+id/route_menu_settings"
+            android:title="@string/route_settings"/>
+</menu>

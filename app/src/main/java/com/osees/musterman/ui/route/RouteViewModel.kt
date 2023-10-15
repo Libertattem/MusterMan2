@@ -1,8 +1,17 @@
 package com.osees.musterman.ui.route
 
+import android.content.SharedPreferences
+import android.util.Log
+import android.view.View
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.lifecycle.*
+import com.osees.musterman.MainSharedPreferences
 
 class RouteViewModel : ViewModel() {
+
+    private lateinit var mainSharedPreferences: MainSharedPreferences
 
     private val defaultButtonSample: Map<Int, List<Int>> = mapOf(
         //Arg1 - горячие, Arg2 - холодные, Arg3 - горячие н/г,Arg4 - холодные н/г
@@ -23,6 +32,7 @@ class RouteViewModel : ViewModel() {
     private val defaultDiscountCheck: Boolean = false
     private val defaultCauseUnusableHot: String = ""
     private val defaultCauseUnusableCold: String = ""
+    private val defaultLocation: String = "Екатеринбург"
 
     private val defaultConsumptionSum: Int = 0
     private val defaultConsumptionCause: String = "Еда"
@@ -33,10 +43,77 @@ class RouteViewModel : ViewModel() {
     private val defaultBottomConsumptionOpened: Boolean = false
 
 
+    private val _linearLayoutLive = MutableLiveData<LinearLayout>().apply {
+        value = null
+    }
+    val linearLayoutLive: LiveData<LinearLayout> = _linearLayoutLive
+
+    fun addLinearLayoutForLiveData(linearLayout: LinearLayout){
+        _linearLayoutLive.value = linearLayout
+    }
+
+    val routeObjects: MutableList<Map<String, Any>> = mutableListOf()
+
+    fun addRouteInLinearLayout (route: ConstraintLayout?){
+        _linearLayoutLive.value?.addView(route)
+        Log.d("My_tag", "child linear layout: " + linearLayoutLive.value?.childCount)
+    }
+
+    fun findLiveMapByViewId (viewId: Int): Map<String, Any>? {
+        var liveMap: Map<String, Any>? = null
+        for(i in routeObjects){
+            if(i["view_id"] == viewId){
+                liveMap = i
+                break
+            }
+        }
+        return liveMap
+    }
+
+    fun findLiveMapByRouteId (routeId: Int): Map<String, Any>? {
+        var liveMap: Map<String, Any>? = null
+        for(i in routeObjects){
+            if(i["route_id"] == routeId){
+                liveMap = i
+                break
+            }
+        }
+        return liveMap
+    }
+
+    fun deleteRouteInLinearLayout (routeObject: View){
+        _linearLayoutLive.value?.removeView(routeObject)
+    }
+
+    fun deleteSharedPreferencesOfRoute (sharedPreferences: SharedPreferences){
+        mainSharedPreferences.deleteSharedPreferences(sharedPreferences)
+    }
+    fun deleteRouteObjectInCell (routeObjectIndex: Int){
+
+    }
+
+    fun createMapLiveOfRoute (map: Map<String, *>): MutableLiveData<Map<String, *>> {
+        val mutableMapLiveData = MutableLiveData<Map<String, *>>().apply {
+            value = map
+        }
+        return mutableMapLiveData
+    }
+
+    fun addRoutsObject(sharedPreferences: SharedPreferences,routeId: Int, routeObject: View, map: MutableLiveData<Map<String, *>>){
+        val finalMap = mapOf(
+            "shared_preferences" to sharedPreferences,
+            "route_id" to routeId,
+            "route_object" to routeObject,
+            "map" to map)
+        //routeObjects.plus(finalMap)
+        routeObjects.add(finalMap)
+    }
+
     private val _buttonSampleLive = MutableLiveData<Map<Int, List<Int>>>().apply {
         value = defaultButtonSample
     }
     val buttonSampleLive: LiveData<Map<Int, List<Int>>> = _buttonSampleLive
+
 
     private val _priceLive = MutableLiveData<Int>().apply {
         value = defaultPrice
@@ -124,6 +201,11 @@ class RouteViewModel : ViewModel() {
     }
     val bottomConsumptionOpenedLive: LiveData<Boolean> = _bottomConsumptionOpenedLive
 
+    private val _locationLive = MutableLiveData<String>().apply {
+        value = defaultLocation
+    }
+    val locationLive: LiveData<String> = _locationLive
+
     fun setIntValue(key: String, value: Int?): Boolean {
         /** available keys:
          * "price"
@@ -177,10 +259,12 @@ class RouteViewModel : ViewModel() {
                  * "cause_unusable_hot"
                  * "cause_unusable_cold"
                  * "consumption_cause"
+                 * "location"
                  */
                 "cause_unusable_hot" -> _causeUnusableHotLive.value = value
                 "cause_unusable_cold" -> _causeUnusableColdLive.value = value
                 "consumption_cause" -> _consumptionCauseLive.value = value
+                "location" -> _locationLive.value = value
             }
             true
         }
@@ -196,6 +280,7 @@ class RouteViewModel : ViewModel() {
          * "cold"
          * "unusable_hot"
          * "unusable_cold"
+         * "sum"
          * "consumption_sum"
          * "consumption_index"
          */
@@ -280,6 +365,8 @@ class RouteViewModel : ViewModel() {
         _sumLive.addSource(_hotLive) { _sumLive.value = finalSum() }
         _sumLive.addSource(_priceLive) { _sumLive.value = finalSum() }
     }
+
+
 
     private fun finalSum(): Int{
         val sum: Int = if (discountCheckLive.value == false){

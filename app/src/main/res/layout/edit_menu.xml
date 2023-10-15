@@ -82,6 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
+                    android:selectAllOnFocus="true"
                     android:hint="@string/route_text_input_price"
                     android:id="@+id/text_input_edit_price"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -96,6 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
+                    android:selectAllOnFocus="true"
                     android:hint="@string/route_text_input_number"
                     android:id="@+id/text_input_edit_route"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -110,6 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
+                    android:selectAllOnFocus="true"
                     android:hint="@string/route_text_input_discount"
                     android:id="@+id/text_input_edit_discount"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -123,6 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
+                    android:selectAllOnFocus="true"
                     android:hint="@string/route_text_input_transfer"
                     android:id="@+id/text_input_edit_transfer"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -197,8 +201,10 @@
         <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/button_cause_unusable_cold" tools:ignore="SpeakableTextPresentCheck"
-                android:textSize="10sp" android:layout_weight="0.8"/>
+                android:id="@+id/button_cause_unusable_cold"
+                tools:ignore="SpeakableTextPresentCheck"
+                android:textSize="10sp"
+                android:layout_weight="0.8"/>
     </LinearLayout>
 
     <LinearLayout
@@ -209,6 +215,11 @@
             tools:ignore="MissingConstraints"
             android:gravity="center">
 
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:id="@+id/button_location"/>
         <CheckBox
                 android:text="@string/route_check_box_discount"
                 android:layout_width="wrap_content"

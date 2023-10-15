@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/navigation_profile_settings"
+            android:icon="@drawable/ic_settings_profile"
+            android:title="Нас-ки профиля"/>
+
+    <item
+            android:id="@+id/navigation_route_settings"
+            android:icon="@drawable/ic_settings_route"
+            android:title="@string/settings_settings_route"/>
+
+    <item
+            android:id="@+id/navigation_program_settings"
+            android:icon="@drawable/ic_settings_program"
+            android:title="Нас-ки программы"/>
+
+</menu>
